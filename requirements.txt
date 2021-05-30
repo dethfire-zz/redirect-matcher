@@ -1,3 +1,4 @@
 streamlit >= 0.82
 pandas >= 1.2.4
 polyfuzz >= 0.3
+numpy<=1.19.4
