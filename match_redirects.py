@@ -14,9 +14,9 @@ st.markdown("""
 st.markdown("""
 <p class="big-font">URL Redirect Matcher</p>
 <b>Directions: </b></ br><ol>
-<li>Upload CSV of ScreamingFrog crawl or URL list</li>
-<li>Upload CSV of 404s from GSC</li>
-<li>Would not recommend with over 10k URLs</li>
+<li>Upload CSV of ScreamingFrog crawl or URL list (URL column labeled 'Address')</li>
+<li>Upload CSV of 404s from GSC (URL column named 'URL')</li>
+<li>Would not recommend with over 10k URLs (very slow)</li>
 </ol>
 """, unsafe_allow_html=True)
 
@@ -27,7 +27,7 @@ get_current = st.file_uploader("Upload Crawl CSV File",type=['csv'])
 
 if get_broken is not None and get_current is not None:
     
-    st.write("Working... :sunglasses:")
+    st.write("Processing, please wait... :sunglasses:")
     
     broken = pd.read_csv(get_broken)
     blogs = pd.read_csv(get_current)
@@ -55,9 +55,9 @@ if get_broken is not None and get_current is not None:
     def get_csv_download_link(df):
         csv = df.to_csv(index=False)
         b64 = base64.b64encode(csv.encode()).decode()
-        return f'<a href="data:file/csv;base64,{b64}" download="redirect-matches.csv">Download CSV Redirect File</a>'
+        return f'<a href="data:file/csv;base64,{b64}" download="redirect-matches.csv">-- Download CSV Redirect File --</a>'
     
     st.markdown(get_csv_download_link(df), unsafe_allow_html=True)
     st.dataframe(df)
     
-st.write('Author: [Greg Bernhardt](https://twitter.com/GregBernhardt4) | Friends: [Rocket Clicks](https://www.rocketclicks.com) and [Physics Forums](https://www.physicsforums.com)')
+st.write('Author: [Greg Bernhardt](https://twitter.com/GregBernhardt4) | Friends: [Rocket Clicks](https://www.rocketclicks.com), [importSEM](https://importsem.com) and [Physics Forums](https://www.physicsforums.com)')
