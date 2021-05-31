@@ -33,10 +33,10 @@ if get_broken is not None and get_current is not None:
     blogs = pd.read_csv(get_current)
     
     broken_list = broken["URL"].tolist()
-    broken_list = [sub.replace('https://www.rayallen.com', '') for sub in broken_list]
+    broken_list = [sub.replace(domain_path, '') for sub in broken_list]
     
     blogs_list = blogs["Address"].tolist()
-    blogs_list = [sub.replace('https://www.rayallen.com', '') for sub in blogs_list]
+    blogs_list = [sub.replace(domain_path, '') for sub in blogs_list]
     
     model = PolyFuzz("EditDistance")
     model.match(broken_list, blogs_list)
@@ -50,7 +50,7 @@ if get_broken is not None and get_current is not None:
     amt_dropped = len(index_names)
     df.drop(index_names, inplace = True)
 
-    df["To"] = "https://www.rayallen.com" + df["To"]
+    df["To"] = domain_path + df["To"]
     
     def get_csv_download_link(df):
         csv = df.to_csv(index=False)
